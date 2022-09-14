@@ -6,7 +6,8 @@ x86_64_asm_object_files := $(patsubst src/impl/x86_64/%.asm, build/x86_64/%.o, $
 
 $(kernel_object_files): build/kernel/%.o : src/impl/kernel/%.rs
 	mkdir -p $(dir $@) && \
-	rustc $(patsubst build/kernel/%.o, src/impl/kernel/%.rs, $@) --emit obj -C link-arg=-nostartfiles -C target-feature=+crt-static -C panic=abort --target x86_64-unknown-none -o $@ 
+  cd src/impl/kernel && \
+	cargo build  
 
 $(x86_64_asm_object_files): build/x86_64/%.o : src/impl/x86_64/%.asm
 	mkdir -p $(dir $@) && \
