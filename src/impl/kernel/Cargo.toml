@@ -5,9 +5,13 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+crate-type = ["staticlib"]
+name = "kernel"
+path = "main.rs"
 [dependencies]
 
 
-[[bin]]
-name = "kernel"
-path = "main.rs"
+#[[bin]]
+#name = "kernel"
+#path = "main.rs"
