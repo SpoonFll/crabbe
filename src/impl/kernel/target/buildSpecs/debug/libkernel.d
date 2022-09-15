@@ -1,1 +1,1 @@
-/home/jackson/projects/JacksonOS/version2/src/impl/kernel/target/buildSpecs/debug/libkernel.a: /home/jackson/projects/JacksonOS/version2/src/impl/kernel/src/main.rs /home/jackson/projects/JacksonOS/version2/src/impl/kernel/src/vga_buffer.rs
+/home/jackson/projects/jacksonos/crabbe/src/impl/kernel/target/buildSpecs/debug/libkernel.a: /home/jackson/projects/jacksonos/crabbe/src/impl/kernel/src/interrupts.rs /home/jackson/projects/jacksonos/crabbe/src/impl/kernel/src/main.rs /home/jackson/projects/jacksonos/crabbe/src/impl/kernel/src/vga_buffer.rs
