@@ -1,7 +1,8 @@
-/home/jackson/projects/jacksonos/crabbe/src/impl/kernel/target/buildSpecs/debug/deps/kernel-c06c7f5b2ffb8598.rmeta: main.rs
+/home/jackson/projects/JacksonOS/version2/src/impl/kernel/target/buildSpecs/debug/deps/kernel-c06c7f5b2ffb8598.rmeta: src/main.rs src/vga_buffer.rs
 
-/home/jackson/projects/jacksonos/crabbe/src/impl/kernel/target/buildSpecs/debug/deps/kernel-c06c7f5b2ffb8598.d: main.rs
+/home/jackson/projects/JacksonOS/version2/src/impl/kernel/target/buildSpecs/debug/deps/kernel-c06c7f5b2ffb8598.d: src/main.rs src/vga_buffer.rs
 
-main.rs:
+src/main.rs:
+src/vga_buffer.rs:
 
 # env-dep:CLIPPY_ARGS=
