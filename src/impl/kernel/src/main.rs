@@ -12,7 +12,6 @@ entry_point!(kernel_main);
 #[no_mangle] // don't mangle the name of this function
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
     // this function is the entry point, since the linker looks for a function
-    use memory;
     use x86_64::{structures::paging::Translate, VirtAddr};
     println!("hello World {}", "!");
     init();
