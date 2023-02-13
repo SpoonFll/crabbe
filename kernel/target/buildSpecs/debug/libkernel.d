@@ -1,0 +1,1 @@
+/home/jacksonb/Work/crabbe/kernel/target/buildSpecs/debug/libkernel.a: /home/jacksonb/Work/crabbe/kernel/src/gdt.rs /home/jacksonb/Work/crabbe/kernel/src/interrupts.rs /home/jacksonb/Work/crabbe/kernel/src/main.rs /home/jacksonb/Work/crabbe/kernel/src/memory.rs /home/jacksonb/Work/crabbe/kernel/src/vga_buffer.rs
