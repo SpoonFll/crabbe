@@ -1,0 +1,7 @@
+cargo:rerun-if-changed=/home/jackson/Work/crabbe/kernel/Cargo.toml
+cargo:rustc-link-search=native=/home/jackson/Work/crabbe/kernel/target/bootimage/bootloader/x86_64-bootloader/release/build/bootloader-ff765df1cac67f12/out
+cargo:rustc-link-lib=static=kernel_bin-kernel
+cargo:rerun-if-env-changed=KERNEL
+cargo:rerun-if-env-changed=KERNEL_MANIFEST
+cargo:rerun-if-changed=/home/jackson/Work/crabbe/kernel/target/buildSpecs/debug/kernel
+cargo:rerun-if-changed=build.rs
