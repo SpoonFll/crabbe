@@ -1,3 +1,4 @@
+use crate::io;
 use crate::println;
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 
@@ -55,10 +56,21 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
     if let Ok(Some(key_event)) = keyboard.add_byte(scancode) {
         if let Some(key) = keyboard.process_keyevent(key_event) {
             match key {
-                DecodedKey::Unicode(character) => print!("{}", character), //@TODO add flag checks to
+                DecodedKey::Unicode(character) => {
+                    let mut ioHandler = io::STDIO.try_lock().unwrap();
+
+                    if ioHandler.get_inFlag() {
+                        ioHandler.append_buffer(character as u8);
+                    }
+                    if ioHandler.get_outFlag() {
+                        print!("{}", character)
+                    }
+                } //@TODO add flag checks to
                 //move into input buffer for STDIN and print out for STDOUT there may be a better
                 //way to do this but I think its good enough
-                DecodedKey::RawKey(key) => print!("{:?}", key),
+                DecodedKey::RawKey(key) => {
+                    print!("{:?}", key)
+                }
             }
         }
     }

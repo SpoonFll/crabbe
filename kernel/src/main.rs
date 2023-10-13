@@ -10,13 +10,10 @@ mod memory;
 pub mod task;
 mod vga_buffer;
 use alloc::{boxed::Box, rc::Rc, string::String, vec, vec::Vec};
+use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 use task::{simple_executor::SimpleExecutor, Task};
-
-static mut inFlag: bool = false;
-static mut outFlag: bool = false;
-
-use bootloader::{entry_point, BootInfo};
+mod io;
 entry_point!(kernel_main);
 #[no_mangle] // don't mangle the name of this function
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
@@ -123,24 +120,24 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     println!("Great SUCCESS! happy hacking :)"); //end of code
     println!("        \\\n         \\\n            _~^~^~_\n        \\) /  o o  \\ (/\n          '_   -   _'\n          / '-----' \\\n\n");
-    //shell(); //infinite loop for now
+    shell(); //infinite loop for now
 
     hlt_loop();
 }
-/**
- * @TODO
- * implement to place interrupt values into vec buffer by setting flag
- */
-fn stdin() {}
-/**
- * @TODO implement toggling STDOUT flag
- */
-fn stdout() {
-    print!("@TODO implement");
-}
 fn shell() {
+    print!("MR. USERMAN $> ");
+    let mut ioHandler = io::STDIO.lock();
+    ioHandler.enable_out();
+    ioHandler.enable_in();
+
     loop {
-        print!("MR. USERMAN $> ");
+        if ioHandler.get_byte(ioHandler.get_position()) == b'b' {
+            println!(
+                "{} {}",
+                core::str::from_utf8(&ioHandler.get_buffer()).expect("Buffer could not be decoded"),
+                ioHandler.get_position()
+            );
+        }
     }
 }
 /**
