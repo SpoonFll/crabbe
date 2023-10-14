@@ -1,3 +1,5 @@
+use core::sync::atomic::Ordering;
+
 use crate::io;
 use crate::println;
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
@@ -49,27 +51,33 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
             Keyboard::new(layouts::Us104Key, ScancodeSet1, HandleControl::Ignore)
         );
     }
-    let mut keyboard = KEYBOARD.lock();
-    let mut port = Port::new(0x60);
-    let scancode: u8 = unsafe { port.read() };
+    if *io::KEYBOARD_ACTIVE.read() {
+        let mut keyboard = KEYBOARD.lock();
+        let mut port = Port::new(0x60);
+        let scancode: u8 = unsafe { port.read() };
 
-    if let Ok(Some(key_event)) = keyboard.add_byte(scancode) {
-        if let Some(key) = keyboard.process_keyevent(key_event) {
-            match key {
-                DecodedKey::Unicode(character) => {
-                    let mut ioHandler = io::STDIO.try_lock().unwrap();
+        if let Ok(Some(key_event)) = keyboard.add_byte(scancode) {
+            if let Some(key) = keyboard.process_keyevent(key_event) {
+                match key {
+                    DecodedKey::Unicode(character) => {
+                        let mut ioHandler =
+                            unsafe { io::STDIO.load(Ordering::SeqCst).as_mut() }.unwrap(); //flags implemented
+                                                                                           //below from io struct
+                                                                                           //mutexes causing pain
+                                                                                           //just want a read and
+                                                                                           //write
 
-                    if ioHandler.get_inFlag() {
-                        ioHandler.append_buffer(character as u8);
+                        if ioHandler.get_inFlag() {
+                            ioHandler.append_buffer(character as u8);
+                            //print!("loaded in ");
+                        }
+                        if ioHandler.get_outFlag() {
+                            print!("{}", character)
+                        }
                     }
-                    if ioHandler.get_outFlag() {
-                        print!("{}", character)
+                    DecodedKey::RawKey(key) => {
+                        print!("{:?}", key)
                     }
-                } //@TODO add flag checks to
-                //move into input buffer for STDIN and print out for STDOUT there may be a better
-                //way to do this but I think its good enough
-                DecodedKey::RawKey(key) => {
-                    print!("{:?}", key)
                 }
             }
         }

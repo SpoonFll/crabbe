@@ -14,6 +14,7 @@ use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 use task::{simple_executor::SimpleExecutor, Task};
 mod io;
+mod shell;
 entry_point!(kernel_main);
 #[no_mangle] // don't mangle the name of this function
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
@@ -120,25 +121,9 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     println!("Great SUCCESS! happy hacking :)"); //end of code
     println!("        \\\n         \\\n            _~^~^~_\n        \\) /  o o  \\ (/\n          '_   -   _'\n          / '-----' \\\n\n");
-    shell(); //infinite loop for now
+    shell::shell(); //infinite loop for now
 
     hlt_loop();
-}
-fn shell() {
-    print!("MR. USERMAN $> ");
-    let mut ioHandler = io::STDIO.lock();
-    ioHandler.enable_out();
-    ioHandler.enable_in();
-
-    loop {
-        if ioHandler.get_byte(ioHandler.get_position()) == b'b' {
-            println!(
-                "{} {}",
-                core::str::from_utf8(&ioHandler.get_buffer()).expect("Buffer could not be decoded"),
-                ioHandler.get_position()
-            );
-        }
-    }
 }
 /**
  *

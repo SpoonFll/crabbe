@@ -1,5 +1,7 @@
+use alloc::boxed::Box;
+use core::sync::atomic::AtomicPtr;
 use lazy_static::lazy_static;
-use spin::Mutex;
+use spin::RwLock;
 pub struct stdio {
     inFlag: bool,
     outFlag: bool,
@@ -7,12 +9,13 @@ pub struct stdio {
     stdioBuf: [u8; 1024],
 }
 lazy_static! {
-    pub static ref STDIO: Mutex<stdio> = Mutex::new(stdio {
+    pub static ref STDIO: AtomicPtr<stdio> = AtomicPtr::new(Box::into_raw(Box::new(stdio {
         inFlag: false,
         outFlag: false,
         position: 0,
         stdioBuf: [0; 1024],
-    });
+    })));
+    pub static ref KEYBOARD_ACTIVE: RwLock<bool> = RwLock::new(true);
 }
 impl stdio {
     pub fn enable_in(&mut self) {
@@ -43,13 +46,18 @@ impl stdio {
     pub fn append_buffer(&mut self, input_byte: u8) -> u8 {
         if self.position < 1024 {
             self.stdioBuf[self.position] = input_byte;
+            self.position += 1;
             0
         } else {
             1
         }
     }
     pub fn get_byte(&self, position: usize) -> u8 {
-        self.stdioBuf[position]
+        if position > 0 {
+            self.stdioBuf[position - 1]
+        } else {
+            self.stdioBuf[position]
+        }
     }
     pub fn del_byte(&mut self) -> u8 {
         if self.position > 0 {
