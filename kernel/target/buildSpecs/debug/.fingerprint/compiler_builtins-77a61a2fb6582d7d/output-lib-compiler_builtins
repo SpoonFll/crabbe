@@ -1,0 +1,25 @@
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/librustc_driver-6fb72141db78b514.so(+0x30f0156)[0x7fdda7cf0156]
+/usr/lib/libc.so.6(+0x3e710)[0x7fdda48c4710]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libLLVM-17-rust-1.74.0-nightly.so(+0x47e9cec)[0x7fdda15e9cec]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libLLVM-17-rust-1.74.0-nightly.so(+0x47e9380)[0x7fdda15e9380]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libLLVM-17-rust-1.74.0-nightly.so(+0x47e839d)[0x7fdda15e839d]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libLLVM-17-rust-1.74.0-nightly.so(_ZN4llvm11MCAssembler6layoutERNS_11MCAsmLayoutE+0x126)[0x7fdda365cba6]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libLLVM-17-rust-1.74.0-nightly.so(_ZN4llvm16MCObjectStreamer10finishImplEv+0xcb)[0x7fdda365c74b]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libLLVM-17-rust-1.74.0-nightly.so(_ZN4llvm13MCELFStreamer10finishImplEv+0x96)[0x7fdda365c5d6]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libLLVM-17-rust-1.74.0-nightly.so(_ZN4llvm10AsmPrinter14doFinalizationERNS_6ModuleE+0x734)[0x7fdda3465e44]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libLLVM-17-rust-1.74.0-nightly.so(_ZN4llvm13FPPassManager14doFinalizationERNS_6ModuleE+0x4a)[0x7fdda34b33de]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libLLVM-17-rust-1.74.0-nightly.so(_ZN4llvm6legacy15PassManagerImpl3runERNS_6ModuleE+0x37b)[0x7fdda31b5b41]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/librustc_driver-6fb72141db78b514.so(+0x2706926)[0x7fdda7306926]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/librustc_driver-6fb72141db78b514.so(+0x27057d8)[0x7fdda73057d8]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/librustc_driver-6fb72141db78b514.so(+0x270411c)[0x7fdda730411c]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/librustc_driver-6fb72141db78b514.so(+0x261b7f8)[0x7fdda721b7f8]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/librustc_driver-6fb72141db78b514.so(+0x261b1ae)[0x7fdda721b1ae]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/librustc_driver-6fb72141db78b514.so(+0x2618f49)[0x7fdda7218f49]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/librustc_driver-6fb72141db78b514.so(+0x26088f6)[0x7fdda72088f6]
+/home/jacksonb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/libstd-4aa9c5361fb5e968.so(rust_metadata_std_c0c5954477cb1558+0x10a2d5)[0x7fdda4b722d5]
+/usr/lib/libc.so.6(+0x8c9eb)[0x7fdda49129eb]
+/usr/lib/libc.so.6(+0x1107cc)[0x7fdda49967cc]
+
+note: we would appreciate a report at https://github.com/rust-lang/rust

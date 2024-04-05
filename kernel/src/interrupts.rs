@@ -60,18 +60,18 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
             if let Some(key) = keyboard.process_keyevent(key_event) {
                 match key {
                     DecodedKey::Unicode(character) => {
-                        let mut ioHandler =
+                        let mut io_handler =
                             unsafe { io::STDIO.load(Ordering::SeqCst).as_mut() }.unwrap(); //flags implemented
                                                                                            //below from io struct
                                                                                            //mutexes causing pain
                                                                                            //just want a read and
                                                                                            //write
 
-                        if ioHandler.get_inFlag() {
-                            ioHandler.append_buffer(character as u8);
+                        if io_handler.get_inFlag() {
+                            io_handler.append_buffer(character as u8);
                             //print!("loaded in ");
                         }
-                        if ioHandler.get_outFlag() {
+                        if io_handler.get_outFlag() {
                             print!("{}", character)
                         }
                     }
